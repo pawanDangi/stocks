@@ -7,17 +7,19 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
 import since from '../utils/since';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    color: theme.palette.common.white
   },
   body: {
-    fontSize: 14,
-  },
+    fontSize: 14
+  }
 }))(TableCell);
 
 const styles = theme => ({
@@ -26,21 +28,27 @@ const styles = theme => ({
     padding: '20px',
     borderRadius: '4px',
     justifyContent: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#eeeeee'
   },
   paper: {
     width: '80%',
     marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   table: {
-    width: '100%',
+    width: '100%'
   },
   row: {
     '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
+      backgroundColor: theme.palette.background.default
+    }
   },
+  inIcon: {
+    color: 'red'
+  },
+  deIcon: {
+    color: '#0073b1'
+  }
 });
 
 function CustomizedTable(props) {
@@ -55,6 +63,7 @@ function CustomizedTable(props) {
               <CustomTableCell align="center">Ticker</CustomTableCell>
               <CustomTableCell align="center">Price</CustomTableCell>
               <CustomTableCell align="center">Last Updated</CustomTableCell>
+              <CustomTableCell align="center">Status</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,6 +73,15 @@ function CustomizedTable(props) {
                 <CustomTableCell align="center">{row[1]}</CustomTableCell>
                 <CustomTableCell align="center">
                   {since(row[2])}
+                </CustomTableCell>
+                <CustomTableCell align="center">
+                  {row[3] === 'in' ? (
+                    <KeyboardArrowDown className={classes.inIcon} />
+                  ) : row[3] === 'de' ? (
+                    <KeyboardArrowUp className={classes.deIcon} />
+                  ) : (
+                    '-'
+                  )}
                 </CustomTableCell>
               </TableRow>
             ))}
@@ -78,7 +96,7 @@ CustomizedTable.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  stocks: PropTypes.array.isRequired,
+  stocks: PropTypes.array.isRequired
 };
 
 export default withStyles(styles)(CustomizedTable);
