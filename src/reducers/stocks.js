@@ -11,6 +11,7 @@ const stocks = (state = [], action) => {
             isOld = true;
           }
         });
+        console.log(`${d[0]}: ${d[1]}`);
         if (isOld || !d[2]) {
           return [d[0], d[1], new Date()];
         }
